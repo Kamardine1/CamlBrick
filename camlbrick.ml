@@ -100,7 +100,6 @@ type t_paddle_size = PS_SMALL | PS_MEDIUM | PS_BIG;;
 *)
 type t_gamestate = GAMEOVER | PLAYING | PAUSING;;
 
-(* Itération 1 *)
 
 (** Vecteur avec position x et y*)
 type t_vec2 = {x:int ; y:int};;
@@ -118,10 +117,7 @@ type t_vec2 = {x:int ; y:int};;
   @param y seconde composante du vecteur
   @return Renvoie le vecteur dont les composantes sont (x,y).
 *)
-let make_vec2(x,y : int * int) : t_vec2 = 
-  (* Itération 1 *)
-  {x=x;y=y}
-;;
+let make_vec2(x,y : int * int) : t_vec2 = {x=x;y=y} ;;
 
 (**
   Cette fonction renvoie un vecteur qui est la somme des deux vecteurs donnés en arguments.
@@ -131,21 +127,12 @@ let make_vec2(x,y : int * int) : t_vec2 =
   @param b second vecteur
   @return Renvoie un vecteur égale à la somme des vecteurs.
 *)
-let vec2_add(a,b : t_vec2 * t_vec2) : t_vec2 =
-  (* Itération 1 *)
-  {x = a.x + b.x ; y = a.y + b.y}
-;;
+let vec2_add(a,b : t_vec2 * t_vec2) : t_vec2 = {x = a.x + b.x ; y = a.y + b.y} ;;
 
 (**
   Cette fonction renvoie un vecteur égale à la somme d'un vecteur
   donné en argument et un autre vecteur construit à partir de (x,y).
   
-  Cette fonction est une optimisation du code suivant (que vous ne devez pas faire en l'état):
-  {[
-let vec2_add_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
-  vec2_add(a, make_vec2(x,y))
-;;
-  ]}
   @author Nicolas Itey 
   @author Olivier Lemaire
   @param a premier vecteur
@@ -156,7 +143,6 @@ let vec2_add_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
 let vec2_add_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
   {x = a.x + x ; y = a.y + y}
 ;;
-
 
 (**
   Cette fonction calcul un vecteur où 
@@ -172,20 +158,10 @@ let vec2_add_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
   @param b second vecteur
   @return Renvoie un vecteur qui résulte de la multiplication des composantes. 
 *)
-let vec2_mult(a,b : t_vec2 * t_vec2) : t_vec2 = 
-  (* Itération 1 *)
-  {x= a.x * b.x ; y= a.y*b.y}
-;;
+let vec2_mult(a,b : t_vec2 * t_vec2) : t_vec2 = {x= a.x * b.x ; y= a.y*b.y} ;;
 
 (**
   Cette fonction calcul la multiplication des composantes du vecteur a et du vecteur construit à partir de (x,y).
-  Cette fonction est une optimisation du code suivant (que vous ne devez pas faire en l'état):
-  {[
-let vec2_mult_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
-  vec2_mult(a, make_vec2(x,y))
-;;
-  ]}
-
   @author Nicolas Itey 
   @author Olivier Lemaire
   @param a premier vecteur
@@ -194,13 +170,11 @@ let vec2_mult_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
   @return Renvoie un vecteur 
     
 *)
-let vec2_mult_scalar(a,x,y : t_vec2 * int * int) : t_vec2 =
-  (* Itération 1 *)
-  {x=a.x*x ; y=a.y*y}
-;;
+let vec2_mult_scalar(a,x,y : t_vec2 * int * int) : t_vec2 = {x=a.x*x ; y=a.y*y} ;;
+
 (** Type réprésentant les différents bonus disponibles *)
 type t_bonus = BONUS_ghost | BONUS_snd_chance | BONUS_NULL | BONUS_croix
-(* Itération 2 *)
+
 (** Type qui représente une balle *)
 type t_ball = {ball_position : t_vec2 ref ; (** position modifiable en (x,y) de la balle *)
                 ball_velocity : t_vec2 ref ; (** vitesse modifiable de la balle en vecteur *)
@@ -208,7 +182,6 @@ type t_ball = {ball_position : t_vec2 ref ; (** position modifiable en (x,y) de 
                 ball_size : int ref;(** rayon de la balle *)
                 bonus : t_bonus ref};;(**bonus utilise*)
 
-(* Itération 2 *)
 (** Type qui représente un paddle *)
 type t_paddle = {
                   paddle_height : int; (** hauteur du paddle*)
@@ -218,7 +191,6 @@ type t_paddle = {
                 }
 ;;
 
-(* Itération 1, 2, 3 et 4 *)
 (** Type qui représente le jeu  *)
 type t_camlbrick = {
   brick_grid : t_brick_kind array array ; (** matrice affichant la grille de brick*)
@@ -257,7 +229,6 @@ let make_camlbrick_param() : t_camlbrick_param = {
   Cette fonction est appelée par l'interface graphique lorsqu'on clique sur le bouton
   de la zone de menu et que ce bouton affiche "Start".
 
-  
   Vous pouvez réaliser des traitements spécifiques, mais comprenez bien que cela aura
   un impact sur les performances si vous dosez mal les temps de calcul.
   @author Antoine Goy
@@ -289,7 +260,6 @@ let stop_onclick(game : t_camlbrick) : unit =
   @return Renvoie le paramétrage actuel.
   *)
 let param_get(game : t_camlbrick) : t_camlbrick_param =
-  (* Itération 1 *)
   make_camlbrick_param()
 ;;
 
@@ -301,7 +271,6 @@ let param_get(game : t_camlbrick) : t_camlbrick_param =
 *)
 let make_paddle() : t_paddle =
   let l_param : t_camlbrick_param = make_camlbrick_param () in
-  (* Itération 2 *)
   {
     paddle_height = (l_param.paddle_init_height);
     paddle_width = ref ((l_param.paddle_init_width));
@@ -319,7 +288,6 @@ let make_paddle() : t_paddle =
     @return une balle
   *)
 let make_ball(x,y, size : int * int * int) : t_ball =
-  (* Itération 3 *)
   {
     ball_position = ref(make_vec2(x,y));
     ball_velocity = ref {x=0; y=1 };
@@ -333,9 +301,7 @@ let make_ball(x,y, size : int * int * int) : t_ball =
 (**
   Fonction utilitaire qui permet de traduire l'état du jeu sous la forme d'une chaîne de caractère.
   Cette fonction est appelée à chaque frame, et est affichée directement dans l'interface graphique.
-  
-  Vous devez modifier cette fonction.
-  
+    
   @author Antoine Goy
   @param game représente le jeu en cours d'exécution.
   @return Renvoie la chaîne de caractère représentant l'état du jeu.
@@ -359,7 +325,6 @@ let string_of_gamestate(game : t_camlbrick) : string =
     @return renvoie le type de brique en position i j
 *)
 let brick_get(game, i, j : t_camlbrick * int * int)  : t_brick_kind =
-  (* Itération 1 *)
   (game.brick_grid).(i).(j)
 ;;
 
@@ -373,7 +338,6 @@ let brick_get(game, i, j : t_camlbrick * int * int)  : t_brick_kind =
     @return la brique après qu'elle a été touché
     *)
 let brick_hit(game, i, j : t_camlbrick * int * int)  : t_brick_kind = 
-  (* Itération 1 *)
   if (game.brick_grid).(i).(j)=BK_simple then
     BK_empty
   else if (game.brick_grid).(i).(j)=BK_double then
@@ -393,7 +357,6 @@ let brick_hit(game, i, j : t_camlbrick * int * int)  : t_brick_kind =
   @return renvoie la couleur de la brique 
 *)
 let brick_color(game,i,j : t_camlbrick * int * int) : t_camlbrick_color = 
-  (* Itération 1 *)
   if (game.brick_grid).(i).(j)=BK_empty then
     BLACK
   else if (game.brick_grid).(i).(j)=BK_simple then
@@ -414,7 +377,6 @@ let brick_color(game,i,j : t_camlbrick * int * int) : t_camlbrick_color =
     @return position en x
     *)
 let paddle_x(game : t_camlbrick) : int = 
-  (* Itération 2 *)
   !(game.paddle.paddle_position).x
 ;;
 
@@ -426,7 +388,6 @@ let paddle_x(game : t_camlbrick) : int =
     @return largeur du paddle
     *)
 let paddle_size_pixel(game : t_camlbrick) : int = 
-  (* Itération 2 *)
   !(game.paddle.paddle_width)
 ;;
 
@@ -437,7 +398,6 @@ let paddle_size_pixel(game : t_camlbrick) : int =
     *)
 let paddle_move_left(game : t_camlbrick) : unit = 
   let move_left : t_vec2 = make_vec2(-3* !(game.game_speed),0) in 
-  (* Itération 2 *)
   if paddle_x(game) <= -350 then
      ()
   else
@@ -450,7 +410,6 @@ let paddle_move_left(game : t_camlbrick) : unit =
   @param game le jeu
 *)
 let paddle_move_right(game : t_camlbrick) : unit = 
-  (* Itération 2 *)
   let move_right : t_vec2 = make_vec2(3* !(game.game_speed),0) in 
   if paddle_x(game) >= 355 then
     ()
@@ -467,7 +426,6 @@ let paddle_move_right(game : t_camlbrick) : unit =
     @return vrai si on a une balle dans le jeu , faux sinon
 *)
 let has_ball(game : t_camlbrick) : bool =
-  (* Itération 2 *)
   if !(game.ball)= [] then false
   else true
 ;;
@@ -479,7 +437,6 @@ let has_ball(game : t_camlbrick) : bool =
   @return nombre de balles dans le jeu
 *)
 let balls_count(game : t_camlbrick) : int =
-  (* Itération 2 *)
   List.length(!(game.ball))
 ;;
   
@@ -491,7 +448,6 @@ let balls_count(game : t_camlbrick) : int =
     @return liste de balle
     *)
 let balls_get(game : t_camlbrick) : t_ball list = 
-  (* Itération 2 *)
   !(game.ball)
 ;;
   
@@ -504,7 +460,6 @@ let balls_get(game : t_camlbrick) : t_ball list =
     @return une balle à la position i
     *)
 let ball_get(game, i : t_camlbrick * int) : t_ball =
-  (* Itération 2 *)
   List.nth (balls_get(game)) i
 ;;
   
@@ -516,7 +471,6 @@ let ball_get(game, i : t_camlbrick * int) : t_ball =
     @return abscisse x au centre d'une balle
 *)
 let ball_x(game, ball : t_camlbrick * t_ball) : int =
-  (* Itération 2 *)
   !((ball_get(game,0)).ball_position).x + !(ball.ball_size)
 ;;
 
@@ -528,7 +482,6 @@ let ball_x(game, ball : t_camlbrick * t_ball) : int =
     @return ordonnée y au centre d'une balle
 *)
 let ball_y(game, ball : t_camlbrick * t_ball) : int =
-  (* Itération 2 *)
   !((ball_get(game,0)).ball_position).y + !(ball.ball_size)
 ;;
 
@@ -540,7 +493,6 @@ let ball_y(game, ball : t_camlbrick * t_ball) : int =
     @return diametre de la balle
 *)
 let ball_size_pixel(game, ball : t_camlbrick * t_ball) : int =
-  (* Itération 2 *)
   !(ball.ball_size) *2
 ;;
 
@@ -552,21 +504,8 @@ let ball_size_pixel(game, ball : t_camlbrick * t_ball) : int =
     @return couleur de la balle
 *)
 let ball_color(game, ball : t_camlbrick * t_ball) : t_camlbrick_color =
-  (* Itération 2 *)
   ball.ball_color
 ;;
-
-(* let ball_modif_speed(game, ball, dv : t_camlbrick * t_ball * t_vec2) : unit =
-  (* Itération 3 *)
-  ()
-;;
-
-
-let ball_modif_speed_sign(game, ball, sv : t_camlbrick * t_ball * t_vec2) : unit =
-  (* Itération 3 *)
-  ()
-;;
-*)
 
 (**
   Fonction qui détecte si un point (x,y) se trouve à l'intérieur d'un cercle
@@ -580,7 +519,6 @@ let ball_modif_speed_sign(game, ball, sv : t_camlbrick * t_ball * t_vec2) : unit
   @return true
 *)
 let is_inside_circle(cx,cy,rad, x, y : int * int * int * int * int) : bool =
-  (* Itération 3 *)
   (((x-cx)*(x-cx)) + ((y-cy)*(y-cy))) < (rad * rad)
 ;;
 
@@ -596,9 +534,7 @@ let is_inside_circle(cx,cy,rad, x, y : int * int * int * int * int) : bool =
   @param y Ordonée du point a verifier
   @return true    
 *)
-let is_inside_quad(x1,y1,x2,y2, x,y : int * int * int * int * int * int) : bool =
-  (* Itération 3 *)
-  
+let is_inside_quad(x1,y1,x2,y2, x,y : int * int * int * int * int * int) : bool =  
   (x >= x1 && x<= x2) && (y <= y2 && y >= y1)
 ;;
 
@@ -613,7 +549,6 @@ let is_inside_quad(x1,y1,x2,y2, x,y : int * int * int * int * int * int) : bool 
     @return Une liste de ball avec la balle dans les limites du jeu
     *)
 let ball_remove_out_of_border(game,balls  : t_camlbrick * t_ball list  ) : t_ball list = 
-  (* Itération 3 *)
   
   let fin_list : t_ball list ref = ref [] in
   for i=0 to balls_count(game)-1 do
@@ -637,7 +572,6 @@ let ball_remove_out_of_border(game,balls  : t_camlbrick * t_ball list  ) : t_bal
     @param paddle le paddle 
     *)
 let ball_hit_paddle(game,ball,paddle : t_camlbrick * t_ball * t_paddle) : unit =
-  (* Itération 3 *)
 
 
   if (!(ball.ball_position).x-(400- !(ball.ball_size)) + !(ball.ball_size)) < (paddle_x(game) + paddle_size_pixel(game)/8) &&
@@ -684,11 +618,6 @@ let ball_hit_paddle(game,ball,paddle : t_camlbrick * t_ball * t_paddle) : unit =
         
 ;;
 
-
-(* lire l'énoncé choix à faire 
-let ball_hit_corner_brick(game,ball, i,j : t_camlbrick * t_ball * int * int) : bool =
-  false
-;; *)
 
 (**casse les brique de la ligne et colonne de la brique bonus touchée
     @author Nicolas Itey 
@@ -752,7 +681,6 @@ else ()
     @return true si la balle touche le côté d'une brique
     *)
 let ball_hit_side_brick(game,ball, i,j : t_camlbrick * t_ball * int * int) : bool =
-  (* Itération 3 *)
   if i<20 && j<30 then
     (if brick_get(game,i,j)=BK_simple || brick_get(game,i,j)=BK_bonus && 
         (is_inside_quad(i*40,j*20,(i+1)*40,(j+1)*20,!(ball.ball_position).x, !(ball.ball_position).y)); then
@@ -801,7 +729,6 @@ let ball_hit_wall(game,ball : t_camlbrick * t_ball) : unit =
     @param game le jeu
     @param balls la liste des balles disponible dans le jeu*)
 let game_test_hit_balls(game, balls : t_camlbrick * t_ball list) : unit =
-  (* Itération 3 *)
   for i=0 to balls_count(game)-1 do
     let ball : t_ball = ball_get(game, i) in
       ball.ball_position:= vec2_add(!(ball.ball_position),!(ball.ball_velocity));
@@ -958,7 +885,6 @@ let reset_ball_onclick(game : t_camlbrick) : unit =
   @return Nombre de briques restantes 
 *)
 let custom1_text(game : t_camlbrick) : string =
-  (* Iteration 4 *)
   "number of bricks left : "^ string_of_int(!(game.brick_number))
 ;;
 
@@ -990,7 +916,6 @@ else ""
   @return Renvoie un jeu correctement initialisé
 *)
 let make_camlbrick() : t_camlbrick = 
-  (* Itération 1, 2, 3 et 4 *)
   let param : t_camlbrick_param =make_camlbrick_param() in
   let res : t_camlbrick ={brick_grid=Array.make_matrix (param.world_width/param.brick_width ) (param.world_bricks_height/param.brick_height) BK_simple ;
                           paddle = make_paddle() ; 
@@ -1065,11 +990,6 @@ let speed_change(game,xspeed : t_camlbrick * int) : unit=
     @author Antoine Goy 
     @param  game le jeu*)
 let animate_action(game : t_camlbrick) : unit =  
-  (* Iteration 1,2,3 et 4
-    Cette fonction est appelée par l'interface graphique à chaque frame
-    du jeu vidéo.
-    Vous devez mettre tout le code qui permet de montrer l'évolution du jeu vidéo.    
-  *)
   if !(game.gameState)=PLAYING then
     game_test_hit_balls(game,!(game.ball))
   else ();
