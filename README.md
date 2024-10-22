@@ -1,15 +1,6 @@
 Le camlbrick est un projet de programmation réalisé en 1ere année de Licence informatique, qui consistait à creer un jeu de casses-briques.
 Camlbrick est un jeu de mot entre casse-briques et ocaml.
 
-Ce fichier contient les détails et instructions concernant le camlbrick
-
-Noms & prenoms des principaux développeurs :
-	Goy Antoine,
-	Itey Nicolas,
-	Lemaire Olivier,
-	et Mirghane Mohamed Kamardine
-
-
 Information sur le jeu :
 ========================
 
